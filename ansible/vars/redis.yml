@@ -1,0 +1,4 @@
+---
+redis_maxmemory: 256M
+redis_maxmemory_policy: allkeys-lfu
+redis_save: []

@@ -1,0 +1,36 @@
+---
+- name: Prepare deployment path
+  file:
+    path: "{{ app_deployment_path }}"
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'
+  become: yes
+
+- name: Checkout repository
+  git:
+    repo: git@gitlab.com:example/example.git
+    dest: "{{ app_deployment_path }}"
+    version: master
+    force: yes
+  register: app_git
+
+- name: Run composer install
+  composer:
+    command: install
+    working_dir: "{{ app_deployment_path }}"
+  when: app_git is changed
+
+- name: Write .env file
+  template:
+    src: templates/env.j2
+    dest: "{{ app_deployment_path }}/.env"
+  when: drupal_db_password is defined
+
+- name: Add drush cron
+  cron:
+    name: "drush cron"
+    job: "cd {{ app_deployment_path }}; drush cron"
+    minute: "0"
+    user: "ubuntu"

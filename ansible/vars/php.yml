@@ -1,0 +1,36 @@
+---
+php_default_version_debian: '7.3'
+php_packages:
+  - php{{ php_default_version_debian }}-common
+  - php{{ php_default_version_debian }}-cli
+  - php{{ php_default_version_debian }}-dev
+  - php{{ php_default_version_debian }}-fpm
+  - libpcre3-dev
+  - php{{ php_default_version_debian }}-gd
+  - php{{ php_default_version_debian }}-curl
+  - php{{ php_default_version_debian }}-imap
+  - php{{ php_default_version_debian }}-json
+  - php{{ php_default_version_debian }}-opcache
+  - php{{ php_default_version_debian }}-xml
+  - php{{ php_default_version_debian }}-mbstring
+  - php-apcu
+  - php{{ php_default_version_debian }}-bcmath
+  - php{{ php_default_version_debian }}-bz2
+  - php{{ php_default_version_debian }}-mysql
+  - php{{ php_default_version_debian }}-readline
+  - php{{ php_default_version_debian }}-sqlite3
+  - php{{ php_default_version_debian }}-xsl
+  - php{{ php_default_version_debian }}-zip
+  - php-redis
+
+php_enable_php_fpm: true
+php_fpm_pm_max_children: 50
+php_fpm_pm_start_servers: 2
+php_fpm_pm_min_spare_servers: 2
+php_fpm_pm_max_spare_servers: 5
+
+php_date_timezone: "UTC"
+php_memory_limit: "128M"
+php_max_execution_time: "90"
+php_upload_max_filesize: "32M"
+php_post_max_size: "128M"

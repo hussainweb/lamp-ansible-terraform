@@ -1,0 +1,37 @@
+---
+- name: Add repository for packages
+  apt_repository:
+    repo: "{{ item }}"
+  with_items:
+    - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} universe'
+    - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} universe'
+    - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates universe'
+    - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates universe'
+    - ppa:certbot/certbot
+  register: repos_installed
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Update apt cache if needed
+  apt:
+    update_cache: true
+  when: repos_installed is changed
+
+- name: Add certbot packages
+  apt:
+    package: [certbot, python-certbot-apache]
+    force_apt_get: yes
+
+- name: Run certbot
+  command: >-
+    certbot --apache --noninteractive --agree-tos --redirect
+    --email {{ certbot_admin_email }}
+    -d {{ certbot_domains | join(',') }}
+
+- name: Add cron job for certbot renewal
+  cron:
+    name: Certbot automatic renewal.
+    job: "certbot renew {{ certbot_auto_renew_options }}"
+    minute: "{{ certbot_auto_renew_minute }}"
+    hour: "{{ certbot_auto_renew_hour }}"
+    user: "{{ certbot_auto_renew_user }}"
+  when: certbot_auto_renew

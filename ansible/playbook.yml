@@ -1,0 +1,80 @@
+---
+# Workaround to gather facts in certain scenarios when filtering based on tags.
+# https://github.com/ansible/ansible/issues/57529#issuecomment-513143430
+- hosts: all
+
+- hosts: all
+  become: true
+  tags: [initial]
+
+  roles:
+    - oefenweb.ssh_keys
+    - geerlingguy.firewall
+
+  vars_files:
+    - vars/ssh.yml
+
+  pre_tasks:
+    - name: Update apt cache if needed.
+      apt: update_cache=yes cache_valid_time=3600
+
+- hosts: web
+  become: true
+  tags: [web]
+
+  roles:
+    - { role: geerlingguy.apache, tags: ["apache"] }
+    - { role: geerlingguy.php, tags: ["php"] }
+    - { role: geerlingguy.apache-php-fpm, tags: ["apache", "php"] }
+    - { role: geerlingguy.redis, tags: ["redis"] }
+    - { role: geerlingguy.composer, tags: ["composer"] }
+    - { role: geerlingguy.drush, tags: ["drush"] }
+    - { role: geerlingguy.drupal-console, tags: ["drupal-console"] }
+
+  vars_files:
+    - vars/app.yml
+    - vars/apache.yml
+    - vars/php.yml
+    - vars/certbot.yml
+    - vars/redis.yml
+    - vars/tools.yml
+
+  pre_tasks:
+    - name: Add repository for packages
+      apt_repository: repo='ppa:ondrej/php'
+
+  tasks:
+    - include_tasks: tasks/certbot.yml
+      tags: [certbot]
+
+- hosts: db
+  become: true
+  tags: [db]
+
+  roles:
+    - geerlingguy.mysql
+
+  vars_files:
+    - vars/db.yml
+
+  pre_tasks:
+    - name: Add keys for MariaDB
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: 177F4010FE56CA3336300305F1656F24C74CD1D8
+    - name: Add repository for MariaDB
+      apt_repository: repo='deb [arch=amd64,arm64,ppc64el] http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.4/ubuntu bionic main'
+
+  tasks:
+    - set_fact:
+        drupal_db_password: "{{ mysql_drupal_user_password }}"
+
+- hosts: web
+  gather_facts: no
+  tags: [deployment]
+
+  vars_files:
+    - vars/app.yml
+
+  tasks:
+    - import_tasks: tasks/deployment.yml

@@ -1,0 +1,7 @@
+---
+apache_vhosts:
+  - servername: "example.com"
+    serveralias: "cms.example.com"
+    documentroot: "{{ app_deployment_path }}/web"
+    extra_parameters: |
+      ProxyPassMatch ^/(.*\.php(/.*)?)$ "fcgi://127.0.0.1:9000{{ app_deployment_path }}/web"

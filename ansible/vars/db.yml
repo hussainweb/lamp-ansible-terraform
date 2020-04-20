@@ -1,0 +1,15 @@
+---
+mysql_packages:
+  - mariadb-client
+  - mariadb-server
+mysql_root_password: "{{ lookup('password', '/dev/null chars=ascii_letters,numeric length=10') }}"
+mysql_drupal_user_password: "{{ lookup('password', '/dev/null chars=ascii_letters,numeric length=10') }}"
+mysql_databases:
+  - name: drupal
+    encoding: utf8mb4
+    collation: utf8mb4_unicode_ci
+mysql_users:
+  - name: drupal
+    host: "%"
+    password: "{{ mysql_drupal_user_password }}"
+    priv: "drupal.*:ALL"

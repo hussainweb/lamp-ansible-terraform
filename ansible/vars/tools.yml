@@ -1,0 +1,17 @@
+---
+
+# Composer settings
+composer_keep_updated: true
+composer_home_owner: ubuntu
+composer_home_group: ubuntu
+
+composer_global_packages:
+  - { name: davidrjonas/composer-lock-diff }
+  - { name: hirak/prestissimo }
+  - { name: squizlabs/php_codesniffer }
+
+# Drush settings
+drush_launcher_install: true
+
+# Drupal Console settings
+drupal_console_keep_updated: true

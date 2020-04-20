@@ -1,0 +1,11 @@
+---
+certbot_auto_renew: true
+certbot_auto_renew_user: ubuntu
+certbot_auto_renew_hour: "0"
+certbot_auto_renew_minute: "30"
+certbot_auto_renew_options: "--quiet --no-self-upgrade"
+
+certbot_admin_email: hussainweb@gmail.com
+certbot_domains:
+  - example.com
+  - cms.example.com
