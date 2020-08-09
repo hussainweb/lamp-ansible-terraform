@@ -1,10 +1,10 @@
-data "aws_ami" "ubuntu1804hvm" {
+data "aws_ami" "web_ubuntu2004hvm" {
   most_recent = true
   owners = ["099720109477"] # Canonical
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-*"]
   }
   filter {
     name   = "virtualization-type"
@@ -13,19 +13,19 @@ data "aws_ami" "ubuntu1804hvm" {
 }
 
 resource "aws_instance" "web" {
-  ami = data.aws_ami.ubuntu1804hvm.id
+  ami = data.aws_ami.web_ubuntu2004hvm.id
   instance_type = var.web_instance_type
 
   key_name = aws_key_pair.main.id
 
   root_block_device {
     volume_type = "gp2"
-    volume_size = 10
+    volume_size = var.web_storage_size
     delete_on_termination = true
   }
 
   tags = {
-    Name = "Drupal WebServer"
+    Name = "Drupal WebServer - ${terraform.workspace}"
     Terraform = "True"
   }
 }
