@@ -1,5 +1,5 @@
 ---
-php_default_version_debian: '7.3'
+php_default_version_debian: '7.4'
 php_packages:
   - php{{ php_default_version_debian }}-common
   - php{{ php_default_version_debian }}-cli
@@ -32,5 +32,5 @@ php_fpm_pm_max_spare_servers: 5
 php_date_timezone: "UTC"
 php_memory_limit: "128M"
 php_max_execution_time: "90"
-php_upload_max_filesize: "32M"
-php_post_max_size: "128M"
+php_upload_max_filesize: "128M"
+php_post_max_size: "384M"
