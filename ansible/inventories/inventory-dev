@@ -1,0 +1,11 @@
+[web]
+ubuntu@example.com
+
+[db]
+ubuntu@example.com
+
+[web:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[db:vars]
+ansible_python_interpreter=/usr/bin/python3
