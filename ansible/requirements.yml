@@ -8,4 +8,3 @@
 - src: geerlingguy.redis
 - src: geerlingguy.composer
 - src: geerlingguy.drush
-- src: geerlingguy.drupal-console

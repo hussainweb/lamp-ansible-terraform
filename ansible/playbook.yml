@@ -29,7 +29,6 @@
     - { role: geerlingguy.redis, tags: ["redis"] }
     - { role: geerlingguy.composer, tags: ["composer"] }
     - { role: geerlingguy.drush, tags: ["drush"] }
-    - { role: geerlingguy.drupal-console, tags: ["drupal-console"] }
 
   vars_files:
     - vars/app.yml
