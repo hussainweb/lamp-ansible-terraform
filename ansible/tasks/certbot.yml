@@ -1,13 +1,7 @@
 ---
 - name: Add repository for packages
   apt_repository:
-    repo: "{{ item }}"
-  with_items:
-    - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} universe'
-    - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} universe'
-    - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates universe'
-    - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates universe'
-    - ppa:certbot/certbot
+    repo: "ppa:certbot/certbot"
   register: repos_installed
   when: ansible_distribution == 'Ubuntu'
 
@@ -18,7 +12,7 @@
 
 - name: Add certbot packages
   apt:
-    package: [certbot, python-certbot-apache]
+    package: [certbot, python3-certbot-apache]
     force_apt_get: yes
 
 - name: Run certbot

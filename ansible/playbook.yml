@@ -45,6 +45,7 @@
   tasks:
     - include_tasks: tasks/certbot.yml
       tags: [certbot]
+      when: certbot_domains is defined
 
 - hosts: db
   become: true
