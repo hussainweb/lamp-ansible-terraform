@@ -4,7 +4,7 @@ data "aws_ami" "web_ubuntu2004hvm" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-${local.web_instance_arch}-*"]
   }
   filter {
     name   = "virtualization-type"
