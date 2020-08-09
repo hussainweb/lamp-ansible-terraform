@@ -12,5 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Super-Linter
       uses: docker://github/super-linter:latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
