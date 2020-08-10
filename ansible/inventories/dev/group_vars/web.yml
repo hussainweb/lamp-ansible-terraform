@@ -3,3 +3,4 @@ firewall_allowed_tcp_ports:
   - "22"
   - "80"
   - "443"
+app_servername: "dev.example.com"

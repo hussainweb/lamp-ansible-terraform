@@ -6,3 +6,5 @@ firewall_allowed_tcp_ports:
 certbot_domains:
   - example.com
   - cms.example.com
+app_servername: "example.com"
+app_serveralias: "cms.example.com"
