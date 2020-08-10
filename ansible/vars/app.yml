@@ -1,2 +1,3 @@
 ---
+app_repository: git@gitlab.com:example/example.git
 app_deployment_path: /var/www/drupal

@@ -10,7 +10,7 @@
 
 - name: Checkout repository
   git:
-    repo: git@gitlab.com:example/example.git
+    repo: "{{ app_repository }}"
     dest: "{{ app_deployment_path }}"
     version: master
     force: yes
