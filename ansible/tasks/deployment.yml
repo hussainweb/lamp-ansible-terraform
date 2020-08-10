@@ -26,6 +26,7 @@
   template:
     src: templates/env.j2
     dest: "{{ app_deployment_path }}/.env"
+    force: no
   when: drupal_db_password is defined
 
 - name: Add drush cron
