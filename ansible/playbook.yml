@@ -17,6 +17,12 @@
   pre_tasks:
     - name: Update apt cache if needed.
       apt: update_cache=yes cache_valid_time=3600
+    - name: Add keys for MariaDB
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: 177F4010FE56CA3336300305F1656F24C74CD1D8
+    - name: Add repository for MariaDB
+      apt_repository: repo='deb [arch=amd64,arm64,ppc64el] http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.4/ubuntu bionic main'
 
 - hosts: web
   become: true
@@ -43,6 +49,11 @@
       apt_repository: repo='ppa:ondrej/php'
 
   tasks:
+    - name: Install MySQL client
+      apt:
+        name: mariadb-client
+        state: present
+
     - include_tasks: tasks/certbot.yml
       tags: [certbot]
       when: certbot_domains is defined
@@ -56,14 +67,6 @@
 
   vars_files:
     - vars/db.yml
-
-  pre_tasks:
-    - name: Add keys for MariaDB
-      apt_key:
-        keyserver: keyserver.ubuntu.com
-        id: 177F4010FE56CA3336300305F1656F24C74CD1D8
-    - name: Add repository for MariaDB
-      apt_repository: repo='deb [arch=amd64,arm64,ppc64el] http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.4/ubuntu bionic main'
 
   tasks:
     - set_fact:
