@@ -32,6 +32,6 @@
 - name: Add drush cron
   cron:
     name: "drush cron"
-    job: "cd {{ app_deployment_path }}; drush cron"
+    job: "cd {{ app_deployment_path }}; date >> {{ app_cron_log_file }}; ./vendor/bin/drush cron >> {{ app_cron_log_file }} 2>> {{ app_cron_log_file }}"
     minute: "0"
     user: "ubuntu"
