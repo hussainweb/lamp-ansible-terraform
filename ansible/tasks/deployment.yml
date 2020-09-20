@@ -12,7 +12,7 @@
   git:
     repo: "{{ app_repository }}"
     dest: "{{ app_deployment_path }}"
-    version: master
+    version: "{{ app_repo_version }}"
     force: yes
   register: app_git
 

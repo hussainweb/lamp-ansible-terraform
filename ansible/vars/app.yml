@@ -1,4 +1,5 @@
 ---
 app_repository: git@gitlab.com:example/example.git
+app_repo_version: master
 app_deployment_path: /var/www/drupal
 app_cron_log_file: ~/cron.log
