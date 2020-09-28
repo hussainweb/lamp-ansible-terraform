@@ -1,6 +1,6 @@
 name: Linter
-
-on:
+Jamming 
+on:social media marketing data application project 
   push:
     branches: [ master ]
   pull_request:
