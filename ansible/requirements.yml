@@ -1,10 +1,14 @@
 ---
-- src: geerlingguy.firewall
-- src: oefenweb.ssh_keys
-- src: geerlingguy.apache
-- src: geerlingguy.php
-- src: geerlingguy.apache-php-fpm
-- src: geerlingguy.mysql
-- src: geerlingguy.redis
-- src: geerlingguy.composer
-- src: geerlingguy.drush
+roles:
+  - src: geerlingguy.firewall
+  - src: oefenweb.ssh_keys
+  - src: geerlingguy.apache
+  - src: geerlingguy.php
+  - src: geerlingguy.apache-php-fpm
+  - src: geerlingguy.mysql
+  - src: geerlingguy.redis
+  - src: geerlingguy.composer
+  - src: geerlingguy.drush
+
+collections:
+  - name: community.general

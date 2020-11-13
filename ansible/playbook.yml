@@ -54,7 +54,7 @@
         name: mariadb-client
         state: present
 
-    - include_tasks: tasks/certbot.yml
+    - import_tasks: tasks/certbot.yml
       tags: [certbot]
       when: certbot_domains is defined
 
