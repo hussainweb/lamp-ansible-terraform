@@ -13,4 +13,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Super-Linter
-      uses: docker://github/super-linter:latest
+      uses: github/super-linter@v3.13.5
